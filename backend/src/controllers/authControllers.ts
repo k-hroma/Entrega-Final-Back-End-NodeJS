@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { validateUser } from '../services/authServices.js'
+import { validateUser, generateToken } from '../services/authServices.js'
 
 const login = async (req: Request, res: Response): Promise<Response> => {
   try {
@@ -9,7 +9,9 @@ const login = async (req: Request, res: Response): Promise<Response> => {
     if (!isValid) {
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
-    return res.status(200).json({ message: "Login OK (token pendiente)" });
+
+    const token = generateToken(username);
+    return res.status(200).json({ token });
   } catch (error) {
     return res.status(500).json({ message: "Error al iniciar sesión" });
   }
