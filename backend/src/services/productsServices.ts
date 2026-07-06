@@ -1,33 +1,20 @@
-// Placeholder en memoria - se reemplaza por Firestore en el Paso 6
-interface Product {
-  id: string;
-  title: string;
-  authorLastname: string;
-  authorFirsttname: string;
-  price: number;
-}
+import type { Book } from '../models/booksModel.js'
+import { findAll, findById, create, remove } from '../models/booksModel.js';
 
-const products: Product[] = [];
-
-const getAllProductsService = async (): Promise<Product[]> => {
-  return products;
+const getAllProductsService = async (): Promise<Book[]> => {
+  return findAll();
 };
 
-const getProductByIdService = async (id: string): Promise<Product | undefined> => {
-  return products.find((p) => p.id === id);
+const getProductByIdService = async (id: string): Promise<Book | undefined> => {
+  return findById(id);
 };
 
-const createProductService = async (data: Omit<Product, "id">): Promise<Product> => {
-  const newProduct: Product = { id: Date.now().toString(), ...data };
-  products.push(newProduct);
-  return newProduct;
+const createProductService = async (data: Omit<Book, "id">): Promise<Book> => {
+  return create(data);
 };
 
 const deleteProductService = async (id: string): Promise<boolean> => {
-  const index = products.findIndex((p) => p.id === id);
-  if (index === -1) return false;
-  products.splice(index, 1);
-  return true;
+  return remove(id);
 };
 
 export { getAllProductsService, getProductByIdService, createProductService, deleteProductService }
