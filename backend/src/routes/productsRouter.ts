@@ -1,22 +1,15 @@
 import { Router } from 'express';
+import { getAllProducts, getProductById, createProduct, deleteProduct } from '../controllers/productsControllers.js';
 
 const productsRouter = Router();
 
-productsRouter.get("/", (req, res) => {
-  res.status(501).json({ message: "Not implemented yet" });
-});
+productsRouter.get("/", getAllProducts);
 
-productsRouter.get("/:id", (req, res) => {
-  res.status(501).json({ message: "Not implemented yet" });
-});
+productsRouter.get("/:id", getProductById);
 
-productsRouter.post("/create", (req, res) => {
-  res.status(501).json({ message: "Not implemented yet" });
-});
+productsRouter.post("/create", createProduct);
 
-productsRouter.delete("/:id", (req, res) => {
-  res.status(501).json({ message: "Not implemented yet" });
-});
+productsRouter.delete("/:id", deleteProduct);
 
 export { productsRouter }
 

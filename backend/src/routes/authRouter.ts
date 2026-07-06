@@ -1,9 +1,8 @@
 import { Router } from 'express';
+import { login } from '../controllers/authControllers.js';
 
 const authRouter = Router();
 
-authRouter.post("/login", (req, res) => {
-  res.status(501).json({ message: "Notimplemented yet" });
-});
+authRouter.post("/login", login );
 
 export { authRouter };
