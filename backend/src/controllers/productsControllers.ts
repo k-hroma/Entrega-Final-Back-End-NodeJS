@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { createProductService, deleteProductService, getAllProductsService, getProductByIdService} from '../services/productsServices.js'
+import { createProductService, deleteProductService, getAllProductsService, getProductByIdService, updateProductService} from '../services/productsServices.js'
 
 
 const getAllProducts = async (_req: Request, res: Response) => {
@@ -46,5 +46,17 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const id = (Array.isArray(req.params.id) ? req.params.id[0] : req.params.id) ?? "";
+    const updated = await updateProductService(id, req.body);
+    if (!updated) {
+      return res.status(400).json({ message: "Producto no encontrado" });
+    }
+    return res.status(200).json(updated);
+  } catch (error) {
+    return res.status(500).json({ message: "Error al actualizar el producto" });
+  }
+};
 
-export { getAllProducts, getProductById, createProduct, deleteProduct }
+export { getAllProducts, getProductById, createProduct, deleteProduct, updateProduct }
