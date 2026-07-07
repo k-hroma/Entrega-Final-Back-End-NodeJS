@@ -23,6 +23,17 @@ app.use((req, _res, next) => {
     next();
 })
 
+app.get("/", (_req, res) => {
+    res.status(200).json({
+        message: "Books API — TechLab Proyecto Final",
+        status: "ok",
+        endpoints: {
+            products: "/api/products",
+            login: "/auth/login",
+        },
+    });
+});
+
 app.use("/auth", authRouter);
 app.use("/api/products", productsRouter);
 
